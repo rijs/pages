@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = pages;
 
+var _compression = require('compression');
+
+var _compression2 = _interopRequireDefault(_compression);
+
 var _key = require('utilise/key');
 
 var _key2 = _interopRequireDefault(_key);
@@ -33,7 +37,7 @@ function pages(ripple) {
   log('creating');
   server = ripple.server || server;
   if (!server || !dir) return ripple;
-  expressify(server).use((0, _serveStatic2.default)((0, _path.resolve)(dir, './pages')));
+  expressify(server).use((0, _compression2.default)(), (0, _serveStatic2.default)((0, _path.resolve)(dir, './pages'), { redirect: false })).use('*', (0, _compression2.default)(), (0, _serveStatic2.default)((0, _path.resolve)(dir, './pages')));
   return ripple;
 }
 
