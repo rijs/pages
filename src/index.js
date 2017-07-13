@@ -6,7 +6,8 @@ export default function pages(ripple, { server, dir } = {}){
   server = ripple.server || server
   if (!server || !dir) return ripple
   expressify(server)
-    .use(serve(resolve(dir, './pages')))
+    .use(compression(), serve(resolve(dir, './pages'), { redirect: false }))
+    .use('*', compression(), serve(resolve(dir, './pages')))
   return ripple
 }
 
@@ -14,6 +15,7 @@ const expressify = server => server.express
   || key('_events.request')(server) 
   || server.on('request', express())._events.request
 
+import compression from 'compression'
 import key from 'utilise/key'
 import { resolve } from 'path'
 import express from 'express'

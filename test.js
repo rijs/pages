@@ -21,11 +21,32 @@ describe('Serve Pages', function() {
       .expect(200, done)
   })
 
-  it('should serve pages - miss', function(done){  
+  it('should serve pages - miss file', function(done){  
     request(app)
-      .get('/404.html')
-      .expect('Cannot GET /404.html\n')
-      .expect(404, done)
+      .get('/missing-path')
+      .expect('Location', '/missing-path/')
+      .expect(301, done)
+  })
+
+  it('should serve pages - miss path', function(done){  
+    request(app)
+      .get('/missing-path/')
+      .expect('<h1>Hello World</h1>')
+      .expect(200, done)
+  })
+
+  it('should default to index', function(done){  
+    request(app)
+      .get('/')
+      .expect('<h1>Hello World</h1>')
+      .expect(200, done)
+  })
+
+  it('should serve other assets', function(done){  
+    request(app)
+      .get('/foo.txt')
+      .expect('foo')
+      .expect(200, done)
   })
 
 })
