@@ -1,7 +1,7 @@
 // -------------------------------------------
 // Serves the /pages directory
 // -------------------------------------------
-export default function pages(ripple, { server, dir } = {}){
+module.exports = function pages(ripple, { server, dir } = {}){
   log('creating')
   server = ripple.server || server
   if (!server || !dir) return ripple
@@ -15,9 +15,9 @@ const expressify = server => server.express
   || key('_events.request')(server) 
   || server.on('request', express())._events.request
 
-import compression from 'compression'
-import key from 'utilise/key'
-import { resolve } from 'path'
-import express from 'express'
-import serve from 'serve-static'
-const log = require('utilise/log')('[ri/pages]')
+const compression = require('compression')
+    , key = require('utilise/key')
+    , { resolve } = require('path')
+    , express = require('express')
+    , serve = require('serve-static')
+    , log = require('utilise/log')('[ri/pages]')
