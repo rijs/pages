@@ -2,16 +2,16 @@ var expect  = require('chai').expect
   , request = require('supertest')
   , app     = require('express')()
   , server  = require('http').createServer(app)
-  , pages   = require('./').default({}, { server, dir: __dirname + '/src' })
+  , pages   = require('./')({}, { server, dir: __dirname })
 
 describe('Serve Pages', function() {
   
   it('should pass over serverless node', function(){  
-    expect(require('./').default({})).to.be.eql({})
+    expect(require('./')({})).to.be.eql({})
   })
 
   it('should gracefully proceed if no server/dir', function(){  
-    expect(require('./').default({}, {})).to.be.eql({})
+    expect(require('./')({}, {})).to.be.eql({})
   })
 
   it('should serve pages - hit', function(done){  
