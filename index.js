@@ -1,13 +1,13 @@
 // -------------------------------------------
 // Serves the /pages directory
 // -------------------------------------------
-module.exports = function pages(ripple, { server, dir } = {}){
+module.exports = function pages(ripple, { server, dir, static = './static' } = {}){
   log('creating')
   const { http = server } = ripple.server || {}
   if (!http || !dir) return ripple
   expressify(http)
-    .use(compression(), serve(resolve(dir, './pages'), { redirect: false }))
-    .use('*', compression(), serve(resolve(dir, './pages')))
+    .use(compression(), serve(resolve(dir, static), { redirect: false }))
+    .use('*', compression(), serve(resolve(dir, static)))
   return ripple
 }
 
